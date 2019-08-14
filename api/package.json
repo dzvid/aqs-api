@@ -1,15 +1,20 @@
 {
-  "dependencies": {
-    "express": "^4.17.1"
-  },
-  "devDependencies": {
-    "prettier-eslint": "^9.0.0"
-  },
   "name": "AirQualitySystem",
   "version": "0.0.1",
   "description": "API for the sensor network using publish-subscriber and DTN",
   "main": "index.js",
   "repository": "https://github.com/tukno/AirQualitySystem",
   "author": "David",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mqtt": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1",
+    "prettier-eslint": "^9.0.0"
+  },
+  "scripts": {
+    "dev": "nodemon server.js"
+  }
 }
