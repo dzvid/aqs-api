@@ -1,0 +1,85 @@
+1. Start yarn project: 
+  yarn init
+
+2. Install mqtt: 
+  yarn add mqtt
+
+3. Install express:
+  yarn add express
+
+4. Install postgree RBDMS on the computer:
+  sudo apt-get update
+  sudo apt-get install postgresql postgresql-contrib
+
+  4.1 Create database: AirQualitySystem
+  4.2 Connect to it
+----------------------------------
+branch: configure_orm
+Tutorial for sequelize with Postgress:
+  https://dev.to/nedsoft/getting-started-with-sequelize-and-postgres-emp
+
+5. Configure how to manage/acess the database using ORM (sequelize)
+  5.1 Install dependencies:
+    yarn add sequelize sequelize-cli pg pg-hstore
+
+  5.2 Next up, let's create sequelize config, create the file .sequelizerc in 
+  your root project directory:
+
+    touch .sequelizerc
+
+  with following content:
+
+    const path = require('path')
+
+    module.exports = {
+      config: path.resolve('./database/config', 'config.js'),
+      'models-path': path.resolve('./database/models'),
+      'seeders-path': path.resolve('./database/seeders'),
+      'migrations-path': path.resolve('./database/migrations'),
+    }
+
+Sequelize uses the .sequelizerc file to generate the config and the model 
+using the specified path, using the following command:
+
+  ./node_modules/.bin/sequelize init
+
+6. Replace the content of the database/config/config.js with the code below:
+  require('dotenv').config()
+
+  module.exports = {
+    development: {
+      url: process.env.DEV_DATABASE_URL,
+      dialect: 'postgres',
+    },
+    test: {
+      url: process.env.TEST_DATABASE_URL,
+      dialect: 'postgres',
+    },
+    production: {
+      url: process.env.DATABASE_URL,
+      dialect: 'postgres',
+    },
+  }
+
+7. How to create a Postgres database connection string?
+  (Production database name: airqualitysystem)
+
+  Method 1:
+  7.1 Create the databases (I also created production database). You might need 
+  to configure your user to be able to connect and have the right roles:
+
+    createdb dev_db -U admin -W
+    createdb test_db -U admin -W
+    createdb airqualitysystem_db -U admin -W (production)
+
+  7.2 The connections string for the databases are:
+    postgres://<db_user>:<db_password>@127.0.0.1:5432/dev_db
+    postgres://<db_user>:<db_password>@127.0.0.1:5432/test_db
+    postgres://<db_user>:<db_password>@127.0.0.1:5432/airqualitysystem_db
+
+  7.3 Now, create a .env file (in the config folder) and copy the snippet below into it:
+    DATABASE_URL=postgres://<db_user>:<db_password>@127.0.0.1:5432/airqualitysystem_db
+    DEV_DATABASE_URL=postgres://<db_user>:<db_password>@127.0.0.1:5432/dev_db
+    TEST_DATABASE_URL=postgres://<db_user>:<db_password>@127.0.0.1:5432/test_db
+
+8. Creating Models and Migrations: We need to create 
