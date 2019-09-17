@@ -8,11 +8,12 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "mqtt": "^3.0.0",
+    "mqtt": "^3.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1",
-    "prettier-eslint": "^9.0.0"
+    "nodemon": "^1.19.2",
+    "prettier-eslint": "^9.0.0",
+    "sucrase": "^3.10.1"
   },
   "scripts": {
     "dev": "nodemon src/server.js"

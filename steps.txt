@@ -1,85 +1,34 @@
-1. Start yarn project: 
-  yarn init
+1. Inicia o projeto:
+  yarn init -y
+2. Cria a estrutura básica do projeto:
+  src/
+      app.js (Configuração do servidor express, configura as rotas e middlewares)
+      routes.js (Rotas da aplicação (Parte de roteamento do express, usando o Router))
+      server.js (Cria o servidor de fato(instância))
 
-2. Install mqtt: 
-  yarn add mqtt
+3.
+  -  Cria a classe da App da aplicação no app.js
+  e implementa os métodos necessários (middlewares e routes).
+  - Configuramos nossas rotas no routes.js
+  - Implementamos o servidor no server.js
 
-3. Install express:
-  yarn add express
+4. Configuramos o Node para interpretar a nova sintaxe do Javascript (ES6+).
+  Para isto usaremos o Sucrase. Configuramos o nodemon também.
+  Ambos como dependencia de desenvolvimento:
+  yarn add sucrase nodemon -D
 
-4. Install postgree RBDMS on the computer:
-  sudo apt-get update
-  sudo apt-get install postgresql postgresql-contrib
+5. Configuramos o projeto para executar com o Sucrase
+(na vdd configuramos o sucrase pra transpilar nosso código):
 
-  4.1 Create database: AirQualitySystem
-  4.2 Connect to it
-----------------------------------
-branch: configure_orm
-Tutorial for sequelize with Postgress:
-  https://dev.to/nedsoft/getting-started-with-sequelize-and-postgres-emp
+yarn sucrase-node src/server.js
 
-5. Configure how to manage/acess the database using ORM (sequelize)
-  5.1 Install dependencies:
-    yarn add sequelize sequelize-cli pg pg-hstore
-
-  5.2 Next up, let's create sequelize config, create the file .sequelizerc in 
-  your root project directory:
-
-    touch .sequelizerc
-
-  with following content:
-
-    const path = require('path')
-
-    module.exports = {
-      config: path.resolve('./database/config', 'config.js'),
-      'models-path': path.resolve('./database/models'),
-      'seeders-path': path.resolve('./database/seeders'),
-      'migrations-path': path.resolve('./database/migrations'),
+mas é melhor criarmos um script junto com o nodemon:
+5.1 Criamos o script no package.json:
+      "dev": "nodemon src/server.js"
+5.2 Configuramos o nodemon para usar o sucrase e não o node para arquivos javascript,
+criando um arquivo de configuração nodemon.json na raiz do projeto, contendo:
+  {
+    "execMap":{
+      "js": "sucrase-node"
     }
-
-Sequelize uses the .sequelizerc file to generate the config and the model 
-using the specified path, using the following command:
-
-  ./node_modules/.bin/sequelize init
-
-6. Replace the content of the database/config/config.js with the code below:
-  require('dotenv').config()
-
-  module.exports = {
-    development: {
-      url: process.env.DEV_DATABASE_URL,
-      dialect: 'postgres',
-    },
-    test: {
-      url: process.env.TEST_DATABASE_URL,
-      dialect: 'postgres',
-    },
-    production: {
-      url: process.env.DATABASE_URL,
-      dialect: 'postgres',
-    },
   }
-
-7. How to create a Postgres database connection string?
-  (Production database name: airqualitysystem)
-
-  Method 1:
-  7.1 Create the databases (I also created production database). You might need 
-  to configure your user to be able to connect and have the right roles:
-
-    createdb dev_db -U admin -W
-    createdb test_db -U admin -W
-    createdb airqualitysystem_db -U admin -W (production)
-
-  7.2 The connections string for the databases are:
-    postgres://<db_user>:<db_password>@127.0.0.1:5432/dev_db
-    postgres://<db_user>:<db_password>@127.0.0.1:5432/test_db
-    postgres://<db_user>:<db_password>@127.0.0.1:5432/airqualitysystem_db
-
-  7.3 Now, create a .env file (in the config folder) and copy the snippet below into it:
-    DATABASE_URL=postgres://<db_user>:<db_password>@127.0.0.1:5432/airqualitysystem_db
-    DEV_DATABASE_URL=postgres://<db_user>:<db_password>@127.0.0.1:5432/dev_db
-    TEST_DATABASE_URL=postgres://<db_user>:<db_password>@127.0.0.1:5432/test_db
-
-8. Creating Models and Migrations: We need to create 
