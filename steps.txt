@@ -98,4 +98,5 @@ editorConfig definir padrão de config de editor pro time de dev)
   e gera o arquivo .editorconfig
 
   ---------------------------------------
-  Inicio da implementação das features
+  
+  INICIO DA IMPLEMENTAÇÃO DAS FEATURES
