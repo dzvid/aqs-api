@@ -1,4 +1,7 @@
+CONFIGURAÇÃO DE BOILERPLATE E AMBIENTE DE DESENVOLVIMENTO 
+
 1. Inicia o projeto:
+
   yarn init -y
 2. Cria a estrutura básica do projeto:
   src/
@@ -93,3 +96,6 @@ editorConfig definir padrão de config de editor pro time de dev)
   9.4 Instala o plugin EditorConfig no vscode (serve pra quando a equipe usa editores
   de código diferemtes, tipo Atom, sublime, etc), depois de instalar: Vai na raiz do projeto
   e gera o arquivo .editorconfig
+
+  ---------------------------------------
+  Inicio da implementação das features
