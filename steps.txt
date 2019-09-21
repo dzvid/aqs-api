@@ -100,3 +100,86 @@ editorConfig definir padrão de config de editor pro time de dev)
   ---------------------------------------
   
   INICIO DA IMPLEMENTAÇÃO DAS FEATURES
+
+10. Configuração das Variáveis de ambiente
+
+Variaveis ambiente podem ter seus valores configurados de acordo com o ambiente
+de execução da aplicação (desenvolvimento/produção). A configuração fica no arquivo
+src/.env na pasta raiz da aplicação
+
+  10.1 Carregamos a configuração utilizando o módulo dotenv:
+  yarn add dotenv
+
+  Importamos o dotenv/config no app.js e no config/database.js, o dotenv
+  carrega as variaveis de ambiente na variavel global process.env que pode ser
+  utilizada para configurar a aplicação.
+
+- Configuração do sequelize
+
+11. Cria pasta config dentro de src.
+  11.1 Dentro da pasta config, Cria o arquivo de configuração das bases de dados (contém as credencias
+  para acesso à base de dados):
+    database.js
+
+12. Cria pasta database dentro de src:
+  12.1 Dentro da pasta database, crio a pasta migrations e seeds.
+
+14. Dentro da pasta src, crio a pasta app
+  A pasta app conterá a maioria do código que envolve regra de negócio da aplicação.
+ 14.1 Dentro da pasta app, crio a pasta controllers e models.
+
+  Resumo da estrutura do projeto:
+  src/
+    app.js
+    routes.js
+    server.js
+    app/
+      controllers
+      models
+    config/
+      database.js
+    database/
+      migrations/
+      seeds/
+
+15. Instalo o sequelize
+  yarn add sequelize
+
+16. Instalo o sequelize-cli como dependencia de desenvolvimento:
+  yarn add sequelize-cli -D
+
+17. Crio o arquivo .sequelizerc (exporta o caminho e pastas criados anteriormente)
+  O 'resolve' importado serve para padronizar o path (tanto em OSX, Windows, Linux)
+  O arquivo fica da seguinte forma:
+
+    const { resolve } = require('path');
+    module.exports = {
+      config: resolve(__dirname, 'src', 'config', 'database.js'),
+      'models-path': resolve(__dirname, 'src', 'app', 'models'),
+      'migrations-path': resolve(__dirname, 'src', 'database', 'migrations'),
+      'seeds-path': resolve(__dirname, 'src', 'database', 'seeds'),
+    };
+
+16. Instalamos as dependencias para usar o PostgreSQL (pode ser necessário uma versão especifica):
+  yarn add pg pg-hstore
+
+17. Editamos arquivo src/config/database.js:
+
+  require('dotenv/config');
+
+  module.exports = {
+    dialect: process.env.DB_DIALECT,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASS,
+      define: {
+        timestamps: true, //serve pra colocar as timestamps: createdAt e updatedAt
+        underscored: true, // Serve para o sequelize criar os models(tabelas) com padrão snake case
+        underscoredAll: true, // Serve para o sequelize criar as colunas e relacionamentos com padrão snake case
+      },
+    };
+
+  *-* Assim finalizou a configuração do sequelize ;) *-*
+
+  
