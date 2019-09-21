@@ -100,3 +100,22 @@ editorConfig definir padrão de config de editor pro time de dev)
   ---------------------------------------
   
   INICIO DA IMPLEMENTAÇÃO DAS FEATURES
+
+10. Configuração das Variáveis de ambiente
+
+Variaveis ambiente podem ter seus valores configurados de acordo com o ambiente
+de execução da aplicação (desenvolvimento/produção). A configuração fica no arquivo
+src/.env na pasta raiz da aplicação
+
+  10.1 Carregamos a configuração utilizando o módulo dotenv:
+  yarn add dotenv
+
+  Importamos o dotenv/config no app.js e no config/database.js, o dotenv
+  carrega as variaveis de ambiente na variavel global process.env que pode ser
+  utilizada para configurar a aplicação.
+
+11. Configuração do sequelize
+Cria pasta config dentro de src.
+  Dentro da pasta config, Cria o arquivo de configuração das bases de dados (contém as credencias
+  para acesso à base de dados):
+    database.js
