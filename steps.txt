@@ -182,4 +182,25 @@ src/.env na pasta raiz da aplicação
 
   *-* Assim finalizou a configuração do sequelize ;) *-*
 
+  -------------------------------------
+  FEATURE: Create sensor node
+
+- Criar Migration de nó sensor
   
+  18. Vamos criar a nossa primeira migration
+que criará a tabela de nós sensores:
+  yarn sequelize migration:create --name=create-sensor-nodes
+
+  18.1 Após finalizar a migration, podemos executá-la:
+    yarn sequelize db:migrate
+  Como resultado teremos a tabela 'sensor_nodes' criada na base de dados.
+    PS: Para desfazer uma migration:
+      yarn sequelize db:migrate:undo (desfaz a ultima migration)
+        ou
+      db:migrate:undo:all (desfaz todas migrations)
+
+- Criar model de nó sensor
+
+- Criar loader de models
+
+  -------------------------------------
