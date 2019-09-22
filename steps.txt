@@ -182,7 +182,7 @@ src/.env na pasta raiz da aplicação
 
   *-* Assim finalizou a configuração do sequelize ;) *-*
 
-  -------------------------------------
+-------------------------------------
   FEATURE: Create sensor node
 
 - Criar Migration de nó sensor
@@ -199,8 +199,16 @@ que criará a tabela de nós sensores:
         ou
       db:migrate:undo:all (desfaz todas migrations)
 
-- Criar model de nó sensor
+- Criar model de nó sensor_nodes
+
+19. O model vai ser utilizado para manipular os dados dos nós sensores (um CRUD):
+  19.1 Criar arquivo SensorNode.js na pasta models;
 
 - Criar loader de models
+  20. Criar o loader index.js na pasta database.
+
+  20.1 Importamos o loader no app.js
+  Podemos testá-lo na rota
+
 
   -------------------------------------

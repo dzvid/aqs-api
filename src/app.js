@@ -1,8 +1,11 @@
 import 'dotenv/config';
 import express from 'express';
 
-// Rotas da aplicação
+// Application Routes
 import routes from './routes';
+
+// Imports the Models Loader
+import './database';
 
 class App {
   constructor() {
