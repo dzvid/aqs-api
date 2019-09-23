@@ -5,7 +5,7 @@ class SensorNode extends Model {
   static init(sequelize) {
     super.init(
       {
-        id_sensor_node: Sequelize.STRING,
+        uid: Sequelize.STRING,
         eid: Sequelize.STRING,
       },
       {

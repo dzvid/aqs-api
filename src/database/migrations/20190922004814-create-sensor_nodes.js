@@ -7,8 +7,8 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-
-      id_sensor_node: {
+      // Unique node IDentifier
+      uid: {
         type: Sequelize.STRING,
         unique: true,
         allowNull: false,
