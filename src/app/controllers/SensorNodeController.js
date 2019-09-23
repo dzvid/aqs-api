@@ -5,23 +5,33 @@ class SensorNodeController {
    * Register a new sensor node in the database.
    */
   async store(req, res) {
-    // TODO: Validate inputs
+    // Fetch the uid and eid from request
+    const { uid, eid } = req.body;
 
     // Verify if sensor node already exists
-    const sensorNodeExits = await SensorNode.findOne({
+    const sensorNodeExists = await SensorNode.findOne({
       where: {
-        id_sensor_node: req.body.id_sensor_node,
+        uid,
       },
     });
 
-    if (sensorNodeExits) {
-      return res.status(400).json({ error: 'The Sensor Node already exists' });
+    if (sensorNodeExists) {
+      return res.status(400).json({
+        message: 'Sensor Node informed already exists',
+        data: {
+          uid,
+          eid,
+        },
+      });
     }
 
-    // In case it doesnt exists, create a new Sensor Node
+    // In case it doesnt exists, create a new sensor node
     const sensorNodeCreated = await SensorNode.create(req.body);
 
-    return res.json(sensorNodeCreated);
+    return res.status(200).json({
+      message: 'Sensor node created successfuly',
+      data: sensorNodeCreated,
+    });
   }
 }
 
