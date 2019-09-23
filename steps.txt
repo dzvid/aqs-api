@@ -185,7 +185,7 @@ src/.env na pasta raiz da aplicação
 -------------------------------------
   FEATURE: Create sensor node
 
-- Criar Migration de nó sensor
+[X] Criar Migration de nó sensor
   
   18. Vamos criar a nossa primeira migration
 que criará a tabela de nós sensores:
@@ -199,16 +199,49 @@ que criará a tabela de nós sensores:
         ou
       db:migrate:undo:all (desfaz todas migrations)
 
-- Criar model de nó sensor_nodes
+[X] Criar model de nó sensor_nodes
 
 19. O model vai ser utilizado para manipular os dados dos nós sensores (um CRUD):
   19.1 Criar arquivo SensorNode.js na pasta models;
 
-- Criar loader de models
+[X] Criar loader de models
   20. Criar o loader index.js na pasta database.
 
   20.1 Importamos o loader no app.js
   Podemos testá-lo na rota
 
+[X] Validação dos dados de entrada para criação do usuário
 
-  -------------------------------------
+  - schemas: Arquivo que contém os esquemas de validação das request da aplicação.
+  - schemaValidator: Middleware para verificar se a request está de acordo com respectivo schema definido.
+
+-------------------------------------
+
+-------------------------------------
+  FEATURE: crud-readings
+
+[X] Criar Migration de leituras (de nós sensores)
+  
+  18. Vamos criar a nossa migration
+que criará a tabela leituras:
+  yarn sequelize migration:create --name=create-readings
+
+  18.1 Após finalizar a migration, podemos executá-la:
+    yarn sequelize db:migrate
+  Como resultado teremos a tabela 'readings' criada na base de dados.
+    PS: Para desfazer uma migration:
+      yarn sequelize db:migrate:undo (desfaz a ultima migration)
+        ou
+      db:migrate:undo:all (desfaz todas migrations)
+
+[ ] Criar model de nó readings
+
+19. O model vai ser utilizado para manipular as leituras coletadas pelos nós sensores (um CRUD):
+  19.1 Criar arquivo Reading.js na pasta models;
+
+[ ] Incluir o model Reading no Models loader (O index.js na pasta database)
+    Após incluir, podemos testá-lo na rota
+
+[ ] Validação dos dados de entrada para CRUD de leitura
+
+-------------------------------------
