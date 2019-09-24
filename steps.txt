@@ -234,13 +234,23 @@ que criará a tabela leituras:
         ou
       db:migrate:undo:all (desfaz todas migrations)
 
-[ ] Criar model de nó readings
+[X] Criar model de readings
 
 19. O model vai ser utilizado para manipular as leituras coletadas pelos nós sensores (um CRUD):
   19.1 Criar arquivo Reading.js na pasta models;
 
-[ ] Incluir o model Reading no Models loader (O index.js na pasta database)
+[X] Criar método que executa associação entre models
+
+[X] Incluir o model Reading no Models loader (O index.js na pasta database)
     Após incluir, podemos testá-lo na rota
+
+[ ] Implementar o CRUD de leituras:
+  [ ] Create (store)
+  [ ] Read: 
+    [ ] All data (index), 
+    [ ] A single reading (show)
+  [ ] Update (update)
+  [ ] Delete (delete)
 
 [ ] Validação dos dados de entrada para CRUD de leitura
 
