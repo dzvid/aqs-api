@@ -35,7 +35,11 @@ module.exports = {
         type: Sequelize.DOUBLE,
         allowNull: false,
       },
-      pm25: {
+      pm2_5: {
+        type: Sequelize.DOUBLE,
+        allowNull: false,
+      },
+      pm10: {
         type: Sequelize.DOUBLE,
         allowNull: false,
       },
