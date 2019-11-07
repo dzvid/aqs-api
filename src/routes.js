@@ -21,6 +21,20 @@ routes.post(
   SensorNodeController.store
 );
 
+// Show a sensor node information
+routes.get(
+  '/sensor_nodes/:uuid',
+  schemaValidator(SensorNodeSchema.show, 'params'),
+  SensorNodeController.show
+);
+
+// Delete a sensor node from the system
+routes.delete(
+  '/sensor_nodes/:uuid',
+  schemaValidator(SensorNodeSchema.delete, 'params'),
+  SensorNodeController.delete
+);
+
 // Registers a sensor node reading in the database
 routes.post('/readings', ReadingController.store);
 

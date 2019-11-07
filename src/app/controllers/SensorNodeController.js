@@ -15,11 +15,11 @@ class SensorNodeController {
   //  *
   //  */
   async store(req, res) {
+    const { board_model, serial_number, description } = req.body;
+
     const uuid = uuidv4();
 
     const eid = `dtn://aqs-sensor-${uuid}.dtn`;
-
-    const { board_model, serial_number, description } = req.body;
 
     const sensorNodeCreated = await SensorNode.create({
       eid,
@@ -30,6 +30,42 @@ class SensorNodeController {
     });
 
     return res.json(sensorNodeCreated);
+  }
+
+  /**
+   * Shows a sensor node information based on uuid.
+   */
+  async show(req, res) {
+    const { uuid } = req.params;
+
+    const sensorNodeExists = await SensorNode.findOne({
+      where: { uuid },
+    });
+
+    if (!sensorNodeExists) {
+      return res.status(404).json({ error: 'Sensor node not found!' });
+    }
+
+    return res.json(sensorNodeExists);
+  }
+
+  /**
+   * Delete a sensor node from the system based on uuid.
+   */
+  async delete(req, res) {
+    const { uuid } = req.params;
+
+    const sensorNodeDeleted = await SensorNode.destroy({
+      where: { uuid },
+    });
+
+    if (!sensorNodeDeleted) {
+      return res.status(404).json({ error: 'Sensor node not found!' });
+    }
+
+    return res.json({
+      message: `Sensor node with uuid = ${uuid} excluded from the system.`,
+    });
   }
 }
 
