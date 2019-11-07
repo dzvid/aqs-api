@@ -1,30 +1,31 @@
 /**
- * Validates the request content according to a given schema and request property.
- * @param {*} schema - The validation schema
- * @param {*} property - Request property (body, query or params) to be validated
+ * Middleware to validate the request content according to a given schema. The schema
+ * has the fields to be validated for the defined property.
+ * @param {*} schema - The validation schema for certain request.
+ * @param {*} property - A property contained in the request to be validated with respective
+ * schema (property e.g.: body, headers, file, etc).
  */
 const schemaValidator = (schema, property) => {
-  return (req, res, next) => {
-    // TODO: It is necessary to make that property is one of the tree values: body, query or params
-    const { error } = schema.validate(req[property]);
-    const isValid = error == null;
+  return async (req, res, next) => {
+    try {
+      await schema[property].validate(req[property], {
+        abortEarly: false,
+      });
 
-    // Verify if validation failed
-    if (!isValid) {
-      const errorDetails = error.details
-        // Remove double quotes from fields returned by error.details
-        // Ex: "\"field\" is required", becomes: "field is required", in response message
-        .map(detail => detail.message.replace(/['"]/g, ''))
-        .join(',');
+      // if validation is successful, continue to next middleware
+      return next();
+    } catch (err) {
+      // Validation failed
+      const errors = err.inner.map(({ path, message }) => ({
+        field: path,
+        message,
+      }));
 
-      return res.status(422).json({
-        message: 'Validation failed',
-        error: errorDetails,
+      return res.status(400).json({
+        error: 'Input validation failed',
+        errors,
       });
     }
-
-    // Validation successfull, continue to next middleware
-    return next();
   };
 };
 

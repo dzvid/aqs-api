@@ -19,18 +19,6 @@ module.exports = {
       },
 
       // Data collected
-      humidity: {
-        type: Sequelize.DOUBLE,
-        allowNull: false,
-      },
-      temperature: {
-        type: Sequelize.DOUBLE,
-        allowNull: false,
-      },
-      pressure: {
-        type: Sequelize.DOUBLE,
-        allowNull: false,
-      },
       ozone: {
         type: Sequelize.DOUBLE,
         allowNull: false,
@@ -46,6 +34,18 @@ module.exports = {
       carbon_monoxide: {
         type: Sequelize.DOUBLE,
         allowNull: false,
+      },
+      humidity: {
+        type: Sequelize.DOUBLE,
+        allowNull: true,
+      },
+      temperature: {
+        type: Sequelize.DOUBLE,
+        allowNull: true,
+      },
+      pressure: {
+        type: Sequelize.DOUBLE,
+        allowNull: true,
       },
       collected_at: {
         type: Sequelize.DATE,

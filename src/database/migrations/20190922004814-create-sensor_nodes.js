@@ -7,16 +7,32 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      // Unique node IDentifier
-      uid: {
+
+      eid: {
         type: Sequelize.STRING,
         unique: true,
         allowNull: false,
       },
 
-      eid: {
+      uuid: {
+        type: Sequelize.UUID,
+        unique: true,
+        allowNull: false,
+      },
+
+      board_model: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+
+      serial_number: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+
+      description: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
 
       // Timestamps
