@@ -89,6 +89,22 @@ class SensorNodeController {
 
     return res.json(sensorNode);
   }
+
+  /**
+   * List all sensor nodes. Results are paginated by 20 items by page.
+   */
+  async index(req, res) {
+    // In case page wasnt declared, defaults to 1
+    const page = req.query.page > 1 ? req.query.page : 1;
+
+    const sensor_nodes = await SensorNode.findAll({
+      order: ['id'],
+      limit: 20,
+      offset: 20 * page - 20,
+    });
+
+    return res.json({ page, sensor_nodes });
+  }
 }
 
 export default new SensorNodeController();

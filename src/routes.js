@@ -35,11 +35,19 @@ routes.delete(
   SensorNodeController.delete
 );
 
+// Updates a node sensor informations
 routes.put(
   '/sensor_nodes/:uuid',
   schemaValidator(SensorNodeSchema.update, 'params'),
   schemaValidator(SensorNodeSchema.update, 'body'),
   SensorNodeController.update
+);
+
+// List all sensor nodes
+routes.get(
+  '/sensor_nodes',
+  schemaValidator(SensorNodeSchema.index, 'query'),
+  SensorNodeController.index
 );
 
 // Registers a sensor node reading in the database

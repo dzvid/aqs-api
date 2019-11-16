@@ -99,6 +99,15 @@ const SensorNodeSchema = {
         .max(255),
     }),
   },
+  index: {
+    query: Yup.object().shape({
+      page: Yup.number()
+        .typeError('page must be a number')
+        .integer()
+        .positive()
+        .required(),
+    }),
+  },
 };
 
 export default SensorNodeSchema;
