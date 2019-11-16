@@ -18,7 +18,7 @@ class SensorNodeController {
     const { board_model, serial_number, description } = req.body;
 
     const uuid = uuidv4();
-
+    // uuid default
     const eid = `dtn://aqs-sensor-${uuid}.dtn`;
 
     const sensorNodeCreated = await SensorNode.create({
@@ -66,6 +66,28 @@ class SensorNodeController {
     return res.json({
       message: `Sensor node with uuid = ${uuid} excluded from the system.`,
     });
+  }
+
+  /**
+   *
+   * Updates a node sensor informations (board_model, serial_number, description).
+   * The fields are all optional.
+   * TODO: Should eid be editable?
+   *
+   */
+  async update(req, res) {
+    const { uuid } = req.params;
+    const { board_model, serial_number, description } = req.body;
+
+    const sensorNode = await SensorNode.findOne({ where: { uuid } });
+
+    if (!sensorNode) {
+      return res.status(404).json({ error: 'Sensor node not found!' });
+    }
+
+    await sensorNode.update({ board_model, serial_number, description });
+
+    return res.json(sensorNode);
   }
 }
 
