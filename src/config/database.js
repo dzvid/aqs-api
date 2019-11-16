@@ -9,6 +9,8 @@ module.exports = {
   password: process.env.DB_PASS,
   define: {
     timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
     underscored: true,
     underscoredAll: true,
   },
