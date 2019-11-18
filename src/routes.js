@@ -5,6 +5,7 @@ import schemaValidator from './app/middlewares/SchemaValidator';
 
 // Validation schemas
 import SensorNodeSchema from './app/validations/SensorNodeSchema';
+import ReadingSchema from './app/validations/ReadingSchema';
 
 // Import controllers
 import SensorNodeController from './app/controllers/SensorNodeController';
@@ -51,7 +52,11 @@ routes.get(
 );
 
 // Registers a sensor node reading in the database
-routes.post('/readings', ReadingController.store);
+routes.post(
+  '/readings',
+  schemaValidator(ReadingSchema.store, 'body'),
+  ReadingController.store
+);
 
 // Export our routes
 export default routes;

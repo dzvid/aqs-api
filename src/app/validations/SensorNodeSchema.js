@@ -36,8 +36,10 @@ const SensorNodeSchema = {
         .required()
         .test(
           'is-valid-uuidv4',
-          'Value informed is not a valid Version 4 UUID',
-          value => isUUID(value, 4)
+          'uuid informed is not a valid Version 4 UUID',
+          // When isUUID receive undefined or null, it returns a TypeError instead of a false result (invalid uuid)
+          // So the test only runs when there is a value passed to uuid, otherwise returns false
+          value => (value ? isUUID(value, 4) : false)
         ),
     }),
   },
@@ -48,8 +50,10 @@ const SensorNodeSchema = {
         .required()
         .test(
           'is-valid-uuidv4',
-          'Value informed is not a valid Version 4 UUID',
-          value => isUUID(value, 4)
+          'uuid informed is not a valid Version 4 UUID',
+          // When isUUID receive undefined or null, it returns a TypeError instead of a false result (invalid uuid)
+          // So the test only runs when there is a value passed to uuid, otherwise returns false
+          value => (value ? isUUID(value, 4) : false)
         ),
     }),
   },
@@ -60,8 +64,10 @@ const SensorNodeSchema = {
         .required()
         .test(
           'is-valid-uuidv4',
-          'Value informed is not a valid Version 4 UUID',
-          value => isUUID(value, 4)
+          'uuid informed is not a valid Version 4 UUID',
+          // When isUUID receive undefined or null, it returns a TypeError instead of a false result (invalid uuid)
+          // So the test only runs when there is a value passed to uuid, otherwise returns false
+          value => (value ? isUUID(value, 4) : false)
         ),
     }),
     // Undefined values are not updated by the model(sequelize)
