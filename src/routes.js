@@ -58,5 +58,13 @@ routes.post(
   ReadingController.store
 );
 
+// Get all readings colected by a sensor node.
+routes.get(
+  '/readings/:uuid',
+  schemaValidator(ReadingSchema.index, 'params'),
+  schemaValidator(ReadingSchema.index, 'query'),
+  ReadingController.index
+);
+
 // Export our routes
 export default routes;

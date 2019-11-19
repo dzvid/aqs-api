@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 
 import isUUID from 'validator/lib/isUUID';
+import { parseISO, isValid } from 'date-fns';
 
 const ReadingSchema = {
   store: {
@@ -36,9 +37,38 @@ const ReadingSchema = {
       carbon_monoxide: Yup.number()
         .typeError('carbon monoxide must be a number type')
         .required(),
-      collected_at: Yup.date()
-        .typeError('collected at date value must be a ISO date string type')
-        .required(),
+      collected_at: Yup.string()
+        .typeError('date value must be an string with ISO format')
+        .required()
+        .test(
+          'is-valid-date',
+          'Invalid date provided, date value must be an string in ISO format',
+          value => isValid(parseISO(value))
+        ),
+    }),
+  },
+  index: {
+    params: Yup.object().shape({
+      uuid: Yup.string()
+        .typeError('Value must be a string')
+        .required()
+        .test(
+          'is-valid-uuidv4',
+          'uuid informed is not a valid Version 4 UUID',
+          // When isUUID receive undefined or null, it returns a TypeError instead of a false result (invalid uuid)
+          // So the test only runs when there is a value passed to uuid, otherwise returns false
+          value => (value ? isUUID(value, 4) : false)
+        ),
+    }),
+    query: Yup.object().shape({
+      date: Yup.string()
+        .typeError('date value must be an string with ISO format')
+        .required()
+        .test(
+          'is-valid-date',
+          'Invalid date provided, date value must be an string in ISO format',
+          value => isValid(parseISO(value))
+        ),
     }),
   },
 };
