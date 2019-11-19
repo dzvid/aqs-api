@@ -65,10 +65,7 @@ class ReadingController {
       collected_at: parsedCollectDate,
     });
 
-    // Remove the 'sensor node id' from the result before return
-    const { sensor_node_id, ...reading } = readingCreated.dataValues;
-
-    return res.json(reading);
+    return res.json({ uuid, ...readingCreated.dataValues });
   }
 
   /**
@@ -113,8 +110,8 @@ class ReadingController {
     });
 
     return res.json({
-      sensor_node: uuid,
-      parsedDate,
+      uuid,
+      date: parsedDate,
       total_readings: readings.count,
       readings: readings.rows,
     });

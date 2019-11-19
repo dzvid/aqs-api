@@ -18,7 +18,7 @@ class SensorNodeController {
     const { board_model, serial_number, description } = req.body;
 
     const uuid = uuidv4();
-    // uuid default
+    // default uuid
     const eid = `dtn://aqs-sensor-${uuid}.dtn`;
 
     const sensorNodeCreated = await SensorNode.create({
@@ -71,8 +71,7 @@ class SensorNodeController {
   /**
    *
    * Updates a node sensor informations (board_model, serial_number, description).
-   * The fields are all optional.
-   * TODO: Should eid be editable?
+   * The fields are all optional. For while, EID cannot be edited.
    *
    */
   async update(req, res) {
