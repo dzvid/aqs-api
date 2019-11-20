@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "apidoc": "^0.17.7",
+    "axios": "^0.19.0",
     "date-fns": "^2.7.0",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
@@ -32,6 +33,7 @@
     "sucrase": "^3.10.1"
   },
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "mqtt": "nodemon src/mqtt.js"
   }
 }
