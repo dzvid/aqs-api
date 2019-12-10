@@ -4,6 +4,11 @@ import api from '../api/api';
 
 import mqttConfig from '../../config/mqtt';
 
+import '../../database';
+
+import ReadingSchema from '../../app/validations/ReadingSchema';
+import Reading from '../../app/models/Reading';
+
 /**
  * Check if the value is valid JSON.
  * @param {any} input
@@ -80,34 +85,40 @@ class MqttHandler {
       // convert JSON message Buffer to valid JSON (object)
       const messageJSON = JSON.parse(message);
 
-      const response = await api.post(topic, {
-        ...messageJSON,
-      });
+      // Validates reading schema, if valid store in database
+      if (await ReadingSchema.store.publish.validate(messageJSON)) {
+        const {
+          uuid,
+          humidity,
+          temperature,
+          pressure,
+          ozone,
+          pm2_5,
+          pm10,
+          carbon_monoxide,
+          collected_at,
+        } = messageJSON;
 
-      console.log('DATA SAVED IN DATABASE!\n');
-      console.log('HTTP STATUS: \n', response.status);
-      console.log('DATA: \n', response.data);
+        const result = await Reading.create({
+          uuid,
+          humidity,
+          temperature,
+          pressure,
+          ozone,
+          pm2_5,
+          pm10,
+          carbon_monoxide,
+          collected_at,
+        });
+        console.log('READING SAVED IN DATABASE!:\n', result);
+      } else {
+        console.log('INVALID READING FORMAT: ', messageJSON);
+      }
     } catch (error) {
-      if (error.response) {
+      if (error) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
-        console.log('-----------------RESPONSE ERROR----------------');
-        console.log('HTTP STATUS: \n', error.response.status);
-        console.log('DATA: \n', error.response.data);
-        console.log('HEADERS: \n', error.response.headers);
-        console.log('------------------------------------------------');
-      } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
-        console.log('-----------------REQUEST ERROR----------------');
-        console.log(error.request);
-        console.log('-------------------------------------------------');
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('----------------------ERROR----------------------');
-        console.log('Error', error.message);
-        console.log('-------------------------------------------------');
+        console.log('FAILED TO PROCESS THE READING: \n', error);
       }
     }
   }
