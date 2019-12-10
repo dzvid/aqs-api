@@ -18,12 +18,21 @@ function isInputJSON(input) {
 }
 class MqttHandler {
   constructor() {
-    const { brokerUrl, username, password, resubscribe } = mqttConfig;
+    const {
+      brokerUrl,
+      username,
+      password,
+      resubscribe,
+      clientId,
+      clean,
+    } = mqttConfig;
 
     this.mqttClient = mqtt.connect(brokerUrl, {
       username,
       password,
       resubscribe,
+      clientId,
+      clean,
     });
 
     this.init();
@@ -68,7 +77,8 @@ class MqttHandler {
    */
   async bridgeMqttToHttp(topic, message) {
     try {
-      const messageJSON = isInputJSON(message) ? message : JSON.parse(message);
+      // convert JSON message Buffer to valid JSON (object)
+      const messageJSON = JSON.parse(message);
 
       const response = await api.post(topic, {
         ...messageJSON,
