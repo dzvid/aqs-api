@@ -21,19 +21,19 @@ module.exports = {
       // Data collected
       ozone: {
         type: Sequelize.DOUBLE,
-        allowNull: false,
+        allowNull: true,
       },
       pm2_5: {
         type: Sequelize.DOUBLE,
-        allowNull: false,
+        allowNull: true,
       },
       pm10: {
         type: Sequelize.DOUBLE,
-        allowNull: false,
+        allowNull: true,
       },
       carbon_monoxide: {
         type: Sequelize.DOUBLE,
-        allowNull: false,
+        allowNull: true,
       },
       humidity: {
         type: Sequelize.DOUBLE,

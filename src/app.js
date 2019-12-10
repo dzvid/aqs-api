@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
+import 'express-async-errors';
 
 // Application Routes
 import routes from './routes';
@@ -14,6 +15,7 @@ class App {
 
     this.middlewares();
     this.routes();
+    this.exceptionHandler();
   }
 
   middlewares() {
@@ -24,6 +26,15 @@ class App {
   routes() {
     // Configure server routes
     this.server.use(routes);
+  }
+
+  /**
+   * Method to handle errors
+   */
+  exceptionHandler() {
+    this.server.use(async (err, req, res, next) => {
+      return res.status(500).json({ error: 'Internal server error' });
+    });
   }
 }
 
