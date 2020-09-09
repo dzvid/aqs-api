@@ -6,19 +6,19 @@ import { parseISO, isValid } from 'date-fns';
 const ReadingSchema = {
   store: {
     body: Yup.object().shape({
-      humidity: Yup.number()
-        .min(0, 'humidity mininimal value is 0%')
-        .max(100, 'humidity max value is 100%')
-        .typeError('humidity must be a number type')
+      relative_humidity: Yup.number()
+        .min(0, 'relative_humidity minimal value is 0%')
+        .max(100, 'relative_humidity max value is 100%')
+        .typeError('relative_humidity must be a number type')
         .notRequired()
         .nullable(),
       temperature: Yup.number()
-        .min(-273.15, 'temperature mininimal value is -273.15 °C')
+        .min(-273.15, 'temperature minimal value is -273.15 °C')
         .typeError('temperature must be a number type')
         .notRequired()
         .nullable(),
       pressure: Yup.number()
-        .min(0, 'pressure mininimal value is 0 hectoPa')
+        .min(0, 'pressure minimal value is 0 hectoPa')
         .typeError('pressure must be a number type')
         .notRequired()
         .nullable(),
@@ -33,17 +33,17 @@ const ReadingSchema = {
           value => (value ? isUUID(value, 4) : false)
         ),
       ozone: Yup.number()
-        .min(0, 'ozone mininimal concentration is 0 µg/m3')
+        .min(0, 'ozone minimal concentration is 0 µg/m3')
         .typeError('ozone must be a number type')
         .notRequired()
         .nullable(),
       pm2_5: Yup.number()
-        .min(0, 'pm2.5 mininimal concentration is 0 µg/m3')
+        .min(0, 'pm2.5 minimal concentration is 0 µg/m3')
         .typeError('pm2.5 must be a number type')
         .notRequired()
         .nullable(),
       pm10: Yup.number()
-        .min(0, 'pm10 mininimal concentration is 0 µg/m3')
+        .min(0, 'pm10 minimal concentration is 0 µg/m3')
         .typeError('pm10 must be a number type')
         .notRequired()
         .nullable(),
@@ -53,11 +53,11 @@ const ReadingSchema = {
         .notRequired()
         .nullable(),
       collected_at: Yup.string()
-        .typeError('date value must be an string with ISO format')
+        .typeError('date value must be a string in ISO format')
         .required()
         .test(
           'is-valid-date',
-          'Invalid date provided, date value must be in ISO format',
+          'Invalid date provided, date value must be a string in ISO format',
           value => isValid(parseISO(value))
         ),
     }),
@@ -77,11 +77,11 @@ const ReadingSchema = {
     }),
     query: Yup.object().shape({
       date: Yup.string()
-        .typeError('date value must be an string with ISO format')
+        .typeError('date value must be a string in ISO format')
         .required()
         .test(
           'is-valid-date',
-          'Invalid date provided, date value must be an string in ISO format',
+          'Invalid date provided, date value must be a string in ISO format',
           value => isValid(parseISO(value))
         ),
     }),

@@ -3,30 +3,18 @@ import uuidv4 from 'uuid/v4';
 import SensorNode from '../models/SensorNode';
 
 class SensorNodeController {
-  // /**
-  //  * @api {POST} /sensor_nodes Registers a new sensor node in the system. Each node has an
-  //  * @apiName PostUser
-  //  * @apiGroup Sensor Node
-  //  *
-  //  * @apiParam {String} board_model Model name of the board used to develop the sensor node (e.g: Raspberry Pi Zero W, Arduino Uno, etc).
-  //  * @apiParam {String} board_model Model name of the board used to develop the sensor node (e.g: Raspberry Pi Zero W, Arduino Uno, etc).
-  //  * @apiParam {String} board_model Model name of the board used to develop the sensor node (e.g: Raspberry Pi Zero W, Arduino Uno, etc).
-  //  * @apiParam {String} board_model Model name of the board used to develop the sensor node (e.g: Raspberry Pi Zero W, Arduino Uno, etc).
-  //  *
-  //  */
+  /**
+   * Creates a new sensor node.
+   */
   async store(req, res) {
-    const { board_model, serial_number, description } = req.body;
+    const { location_latitude, location_longitude } = req.body;
 
     const uuid = uuidv4();
-    // default uuid
-    const eid = `dtn://aqs-sensor-${uuid}.dtn`;
 
     const sensorNodeCreated = await SensorNode.create({
-      eid,
       uuid,
-      board_model,
-      serial_number,
-      description,
+      location_latitude,
+      location_longitude,
     });
 
     return res.json(sensorNodeCreated);
@@ -50,7 +38,7 @@ class SensorNodeController {
   }
 
   /**
-   * Delete a sensor node from the system based on uuid.
+   * Deletes a sensor node from the system based on uuid.
    */
   async delete(req, res) {
     const { uuid } = req.params;
@@ -70,13 +58,13 @@ class SensorNodeController {
 
   /**
    *
-   * Updates a node sensor informations (board_model, serial_number, description).
-   * The fields are all optional. For while, EID cannot be edited.
+   * Updates a node sensor informations (location_latitude, location_longitude).
+   * The fields are all optional.
    *
    */
   async update(req, res) {
     const { uuid } = req.params;
-    const { board_model, serial_number, description } = req.body;
+    const { location_latitude, location_longitude } = req.body;
 
     const sensorNode = await SensorNode.findOne({ where: { uuid } });
 
@@ -84,7 +72,7 @@ class SensorNodeController {
       return res.status(404).json({ error: 'Sensor node not found!' });
     }
 
-    await sensorNode.update({ board_model, serial_number, description });
+    await sensorNode.update({ location_latitude, location_longitude });
 
     return res.json(sensorNode);
   }

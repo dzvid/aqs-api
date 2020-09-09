@@ -4,8 +4,7 @@ class Reading extends Model {
   static init(sequelize) {
     super.init(
       {
-        // Data collected
-        humidity: Sequelize.DOUBLE,
+        relative_humidity: Sequelize.DOUBLE,
         temperature: Sequelize.DOUBLE,
         pressure: Sequelize.DOUBLE,
         ozone: Sequelize.DOUBLE,
@@ -23,7 +22,6 @@ class Reading extends Model {
     return this;
   }
 
-  // Defines a relationship between tables sensor_nodes and readings, add FK in readings
   static associate(models) {
     this.belongsTo(models.SensorNode, {
       foreignKey: 'sensor_node_id',

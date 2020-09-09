@@ -11,7 +11,7 @@ class ReadingController {
   async store(req, res) {
     const {
       uuid,
-      humidity,
+      relative_humidity,
       temperature,
       pressure,
       ozone,
@@ -41,21 +41,21 @@ class ReadingController {
     if (readingExists) {
       return res
         .status(400)
-        .json({ error: 'Reading already exists in the database' });
+        .json({ error: 'Reading already exists in the database!' });
     }
 
     // Check if collected date is valid (not a date in the future)
     if (isAfter(parsedCollectDate, new Date())) {
       return res.status(400).json({
         error:
-          'Reading with invalid collected date (collected date informed is a future date)',
+          'Reading with invalid collected date (collected date informed is a future date)!',
       });
     }
 
     // Stores reading in the database
     const readingCreated = await Reading.create({
       sensor_node_id: sensorNode.id,
-      humidity,
+      relative_humidity,
       temperature,
       pressure,
       ozone,
@@ -97,7 +97,7 @@ class ReadingController {
       },
       attributes: [
         'id',
-        'humidity',
+        'relative_humidity',
         'temperature',
         'pressure',
         'ozone',

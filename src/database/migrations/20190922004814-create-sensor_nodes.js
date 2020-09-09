@@ -7,40 +7,24 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-
-      eid: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false,
-      },
-
       uuid: {
         type: Sequelize.UUID,
         unique: true,
         allowNull: false,
       },
-
-      board_model: {
-        type: Sequelize.STRING,
+      location_latitude: {
+        type: Sequelize.DOUBLE,
         allowNull: false,
       },
-
-      serial_number: {
-        type: Sequelize.STRING,
+      location_longitude: {
+        type: Sequelize.DOUBLE,
         allowNull: false,
       },
-
-      description: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-
       // Timestamps
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-
       updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
