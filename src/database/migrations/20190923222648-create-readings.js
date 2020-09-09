@@ -7,18 +7,13 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
       },
-      // Sensor FK
       sensor_node_id: {
         type: Sequelize.INTEGER,
         references: { model: 'sensor_nodes', key: 'id' },
-        // Update in a sensor node information is reflected in readings table
         onUpdate: 'CASCADE',
-        // When sensor node is deleted, all its data collected is deleted
         onDelete: 'CASCADE',
         allowNull: false,
       },
-
-      // Data collected
       ozone: {
         type: Sequelize.DOUBLE,
         allowNull: true,
@@ -35,7 +30,7 @@ module.exports = {
         type: Sequelize.DOUBLE,
         allowNull: true,
       },
-      humidity: {
+      relative_humidity: {
         type: Sequelize.DOUBLE,
         allowNull: true,
       },
@@ -49,11 +44,9 @@ module.exports = {
       },
       collected_at: {
         type: Sequelize.DATE,
+        unique: true,
         allowNull: false,
       },
-
-      // Timestamps
-      // created_at is equivalent to the date when data was received by the backend
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

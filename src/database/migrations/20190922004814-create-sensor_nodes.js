@@ -33,6 +33,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('sensor_node');
+    return queryInterface.dropTable('sensor_nodes');
   },
 };
