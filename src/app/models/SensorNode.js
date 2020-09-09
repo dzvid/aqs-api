@@ -5,11 +5,15 @@ class SensorNode extends Model {
   static init(sequelize) {
     super.init(
       {
-        eid: Sequelize.STRING,
         uuid: Sequelize.UUID,
-        board_model: Sequelize.STRING,
-        serial_number: Sequelize.STRING,
-        description: Sequelize.STRING,
+        eid: {
+          type: Sequelize.VIRTUAL,
+          get() {
+            return `dtn://aqs-sensor-${this.uuid}.dtn`;
+          },
+        },
+        location_latitude: Sequelize.DOUBLE,
+        location_longitude: Sequelize.DOUBLE,
       },
       {
         sequelize,
