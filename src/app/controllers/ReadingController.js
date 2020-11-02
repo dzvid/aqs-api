@@ -68,7 +68,7 @@ class ReadingController {
       collected_at: parsedCollectDate,
     });
 
-    return res.status(201);
+    return res.status(201).json();
   }
 
   /**
