@@ -2,8 +2,6 @@ import * as Yup from 'yup';
 
 import isUUID from 'validator/lib/isUUID';
 
-import isEmpty from '../utils/isEmpty';
-
 const SensorNodeSchema = {
   store: {
     body: Yup.object().shape({
