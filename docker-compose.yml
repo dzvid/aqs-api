@@ -1,20 +1,6 @@
 version: '3'
 
 services:
-  aqs-api:
-    image: dzvid/aqs-api:latest
-    container_name: aqs-api
-    environment:
-      - NODE_ENV=${NODE_ENV}
-      - DB_HOST=aqs-postgres
-    restart: always
-    ports:
-      - '${API_PORT}:3000'
-    depends_on:
-      - aqs-postgres
-    networks:
-      - aqs-network
-
   aqs-postgres:
     image: postgres
     container_name: aqs-postgres
@@ -26,6 +12,20 @@ services:
       - POSTGRES_DB=${DB_NAME}
     ports:
       - '${DB_PORT}:5432'
+    networks:
+      - aqs-network
+
+  aqs-api:
+    image: dzvid/aqs-api:latest
+    container_name: aqs-api
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - DB_HOST=aqs-postgres
+    restart: always
+    ports:
+      - '${API_PORT}:3000'
+    depends_on:
+      - aqs-postgres
     networks:
       - aqs-network
 

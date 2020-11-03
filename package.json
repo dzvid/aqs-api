@@ -32,6 +32,7 @@
     "prettier-eslint": "^9.0.0"
   },
   "scripts": {
+    "migrations": "yarn sequelize db:migrate",
     "dev": "nodemon src/server.js",
     "build": "yarn clean && yarn && yarn build-sucrase",
     "clean": "rm -rf dist && mkdir dist",
