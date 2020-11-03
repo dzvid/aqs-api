@@ -10,21 +10,25 @@ class ReadingController {
    */
   async store(req, res) {
     const {
-      uuid,
-      humidity,
-      temperature,
-      pressure,
-      ozone,
-      pm2_5,
-      pm10,
-      carbon_monoxide,
-      collected_at,
+      sensor_node: { uuid },
+      reading: {
+        relative_humidity,
+        temperature,
+        pressure,
+        ozone,
+        pm2_5,
+        pm10,
+        carbon_monoxide,
+        collected_at,
+      },
     } = req.body;
 
     const parsedCollectDate = parseISO(collected_at);
 
     // Check if sensor node informed exists
-    const sensorNode = await SensorNode.findOne({ where: { uuid } });
+    const sensorNode = await SensorNode.findOne({
+      where: { uuid },
+    });
 
     if (!sensorNode) {
       return res.status(404).json({ error: 'Sensor node not found!' });
@@ -41,21 +45,20 @@ class ReadingController {
     if (readingExists) {
       return res
         .status(400)
-        .json({ error: 'Reading already exists in the database' });
+        .json({ error: 'Reading already exists in the database!' });
     }
 
     // Check if collected date is valid (not a date in the future)
     if (isAfter(parsedCollectDate, new Date())) {
       return res.status(400).json({
         error:
-          'Reading with invalid collected date (collected date informed is a future date)',
+          'Reading with invalid collected date (collected date informed is a future date)!',
       });
     }
 
-    // Stores reading in the database
-    const readingCreated = await Reading.create({
+    await Reading.create({
       sensor_node_id: sensorNode.id,
-      humidity,
+      relative_humidity,
       temperature,
       pressure,
       ozone,
@@ -65,7 +68,7 @@ class ReadingController {
       collected_at: parsedCollectDate,
     });
 
-    return res.json({ uuid, ...readingCreated.dataValues });
+    return res.status(201).json();
   }
 
   /**
@@ -97,7 +100,7 @@ class ReadingController {
       },
       attributes: [
         'id',
-        'humidity',
+        'relative_humidity',
         'temperature',
         'pressure',
         'ozone',
@@ -110,7 +113,7 @@ class ReadingController {
     });
 
     return res.json({
-      uuid,
+      sensor_node: { uuid },
       date: parsedDate,
       total_readings: readings.count,
       readings: readings.rows,

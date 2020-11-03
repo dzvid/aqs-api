@@ -1,9 +1,9 @@
 {
-  "name": "AirQualitySystem",
+  "name": "aqs-api",
   "version": "0.0.1",
   "description": "API for the sensor network using publish-subscriber and DTN",
   "main": "index.js",
-  "repository": "https://github.com/tukno/AirQualitySystem",
+  "repository": "https://github.com/dzvid/aqs-api",
   "author": "David",
   "license": "MIT",
   "dependencies": {
@@ -17,7 +17,9 @@
     "sequelize": "^5.19.0",
     "uuid": "^3.3.3",
     "validator": "^12.0.0",
-    "yup": "^0.27.0"
+    "yup": "^0.27.0",
+    "sequelize-cli": "^5.5.1",
+    "sucrase": "^3.10.1"
   },
   "devDependencies": {
     "eslint": "^6.4.0",
@@ -27,11 +29,17 @@
     "eslint-plugin-prettier": "^3.1.0",
     "nodemon": "^1.19.2",
     "prettier": "^1.18.2",
-    "prettier-eslint": "^9.0.0",
-    "sequelize-cli": "^5.5.1",
-    "sucrase": "^3.10.1"
+    "prettier-eslint": "^9.0.0"
   },
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "migrations": "yarn sequelize db:migrate",
+    "dev": "nodemon src/server.js",
+    "build": "yarn clean && yarn && yarn build-sucrase",
+    "clean": "rm -rf dist && mkdir dist",
+    "build-sucrase": "yarn sucrase ./src -d ./dist --transforms imports",
+    "start": "node dist/server.js"
+  },
+  "engines": {
+    "node": "12.16.1"
   }
 }

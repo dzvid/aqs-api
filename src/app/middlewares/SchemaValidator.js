@@ -23,7 +23,7 @@ const schemaValidator = (schema, property) => {
 
       return res.status(400).json({
         error: 'Input validation failed',
-        errors,
+        message: errors,
       });
     }
   };
