@@ -7,7 +7,7 @@ USER node
 
 # Install dependencies
 COPY package.json yarn.* ./
-RUN yarn
+RUN yarn --network-timeout 1000000 
 
 # Copy app source
 COPY --chown=node:node . .
