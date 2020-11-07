@@ -7,11 +7,13 @@ services:
     restart: always
     environment:
       - DB_HOST=aqs-postgres
+      - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER:${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASS}
-      - POSTGRES_DB=${DB_NAME}
     ports:
       - '${DB_PORT}:5432'
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
     networks:
       - aqs-network
 
