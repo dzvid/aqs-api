@@ -85,6 +85,7 @@ Main technologies, libraries and CLI tools used to built the API:
 - [Node.js](https://nodejs.org/): Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine;
 - [PostgreSQL](https://www.postgresql.org/): a powerful, open source object-relational database system with over 30 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance;
 - [Docker](https://www.docker.com/): Docker containers wrap up software and its dependencies into a standardized unit for software development that includes everything it needs to run: code, runtime, system tools and libraries. This guarantees that your application will always run the same way and makes collaboration as simple as sharing a container image;
+- [Docker Compose](https://docs.docker.com/compose/): Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration;
 - [Date-fns](https://github.com/date-fns/date-fns): Modern JavaScript date utility library;
 - [Express](https://github.com/expressjs/express): Fast, unopinionated, minimalist web framework for node;
 - [Sequelize](https://github.com/sequelize/sequelize): An easy-to-use multi SQL dialect ORM for Node.js
@@ -178,7 +179,7 @@ Docker Compose will be used to install the project:
       yarn sequelize db:migrate
       ```
 
-6. Now you can access API service at: `http://localhost:3000` (If using default API_PORT).
+6. Now you can access API service at: `http://localhost:3000` (If using default `API_PORT`).
 
 You are done with configuration! I hope everything is alright and you are ready to use the API service! :tada:
 
