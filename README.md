@@ -157,7 +157,10 @@ Docker Compose will be used to install the project:
 3. PostgreSQL database storage: PostgreSQL Docker images provides two options available to store databases used by applications:
    
    3.1 (Adopted in this project) Create a data directory on the host system (outside the container) and mount this to a directory visible from inside the container. This places the database files in a known location on the host system, and makes it easy for tools and applications on the host system to access the files. The downside is that the user needs to make sure that the directory exists, and that e.g. directory permissions and other security mechanisms on the host system are set up correctly.
-   This is the default setting defined in this project, a volume is defined in the directory `./db/data`.
+   This is the default setting defined in this project, a volume is defined in the directory `./db/data`. In this step it is necessary ro remove the `.gitignore` located at `./db/data`, run the following command to remove it:
+    ```sh
+    rm  db/data/.gitignore
+    ```
 
    3.2 Let Docker manage the storage of your database data by writing the database files to disk on the host system using its own internal volume management. This is the default and is easy and fairly transparent to the user. The downside is that the files may be hard to locate for tools and applications that run directly on the host system, i.e. outside containers.
    If you want to let Docker manage database storage, edit the file `docker-compose.yml` and remove the whole `volumes` section from the service `aqs-postgres`.
