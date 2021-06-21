@@ -1,6 +1,0 @@
-{
-  "name": "AirQualitySystem",
-  "version": "0.0.1",
-  "description": "API for the air quality sensor network using publish-subscriber message pattern and DTN",
-  "url": "https://github.com/tukno/AirQualitySystem"
-}
