@@ -1,7 +1,7 @@
-FROM node:12.16.1-alpine
+FROM node:12-alpine
 
-RUN mkdir -p /home/node/api/node_modules && chown -R node:node /home/node/api
-WORKDIR /home/node/api
+RUN mkdir -p /usr/app/node_modules && chown -R node:node /usr/app
+WORKDIR /usr/app
 
 USER node
 
@@ -13,8 +13,8 @@ RUN yarn --network-timeout 1000000
 COPY --chown=node:node . .
 
 # Transpile code
-RUN yarn build
+# RUN yarn build
 
 EXPOSE 3000
 
-CMD ["yarn", "start"]
+CMD ["yarn", "dev"]

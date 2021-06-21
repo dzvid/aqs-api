@@ -1,0 +1,11 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "AQS-API",
+    "description": "API for the air quality sensor network using DTN",
+    "version": "0.0.1",
+    "contact": {
+      "email": "oliveiradavid.dev@gmail.com"
+    }
+  }
+}

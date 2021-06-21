@@ -1,36 +1,41 @@
 version: '3'
 
 services:
-  aqs-postgres:
+  aqs-db:
     image: postgres
-    container_name: aqs-postgres
+    container_name: aqs-db
     restart: always
     environment:
-      - DB_HOST=aqs-postgres
-      - POSTGRES_DB=${DB_NAME}
-      - POSTGRES_USER:${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASS}
+      - 'POSTGRES_USER=${DB_USERNAME}'
+      - 'POSTGRES_PASSWORD=${DB_PASSWORD}'
+      - 'POSTGRES_DB=${DB_DATABASE}'
     ports:
       - '${DB_PORT}:5432'
     volumes:
-      - ./db/data:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     networks:
       - aqs-network
 
   aqs-api:
-    image: dzvid/aqs-api:latest
+    build: .
     container_name: aqs-api
     environment:
-      - NODE_ENV=${NODE_ENV}
-      - DB_HOST=aqs-postgres
+      - 'NODE_ENV=${NODE_ENV}'
+      - 'DB_HOST=${DB_HOST}'
     restart: always
     ports:
       - '${API_PORT}:3000'
+    volumes:
+      - .:/usr/app
     depends_on:
-      - aqs-postgres
+      - aqs-db
     networks:
       - aqs-network
 
 networks:
   aqs-network:
     driver: bridge
+
+volumes:
+  pgdata:
+    driver: local

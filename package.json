@@ -1,7 +1,7 @@
 {
-  "name": "aqs-api",
+  "name": "AQS-API",
   "version": "0.0.1",
-  "description": "API for the sensor network using publish-subscriber and DTN",
+  "description": "API for the air quality sensor network using DTN",
   "main": "index.js",
   "repository": "https://github.com/dzvid/aqs-api",
   "author": "David",
@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
     "csv-parse": "^4.15.4",
     "dayjs": "^1.10.5",
     "dotenv": "^9.0.2",
@@ -53,8 +54,5 @@
     "ts-node-dev": "^1.1.6",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.2.4"
-  },
-  "engines": {
-    "node": "12.16.1"
   }
 }
