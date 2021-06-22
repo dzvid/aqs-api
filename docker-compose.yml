@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   aqs-db:
@@ -12,7 +12,7 @@ services:
     ports:
       - '${DB_PORT}:5432'
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
     networks:
       - aqs-network
 
@@ -25,8 +25,9 @@ services:
     restart: always
     ports:
       - '${API_PORT}:3000'
+    working_dir: /usr/app
     volumes:
-      - .:/usr/app
+      - ./:/usr/app
     depends_on:
       - aqs-db
     networks:
@@ -37,5 +38,5 @@ networks:
     driver: bridge
 
 volumes:
-  pgdata:
+  db-data:
     driver: local
