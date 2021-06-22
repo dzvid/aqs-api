@@ -25,9 +25,9 @@ services:
     restart: always
     ports:
       - '${API_PORT}:3000'
-    working_dir: /usr/app
+    working_dir: /app
     volumes:
-      - ./:/usr/app
+      - ./:/app
     depends_on:
       - aqs-db
     networks:
