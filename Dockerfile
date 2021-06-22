@@ -6,8 +6,8 @@ WORKDIR /usr/app
 USER node
 
 # Install dependencies
-COPY package.json yarn.* ./
-RUN yarn --network-timeout 1000000 
+COPY package.json yarn.lock ./
+RUN yarn install --network-timeout 1000000 
 
 # Copy app source
 COPY --chown=node:node . .
