@@ -1,8 +1,8 @@
-import { ISensorNodeRepository } from '@modules/sensorNodes/repositories/ISensorNodeRepository';
-import { SensorNodeRepository } from '@modules/sensorNodes/repositories/SensorNodeRepository';
+import { ISensorNodesRepository } from '@modules/sensorNodes/repositories/ISensorNodesRepository';
+import { SensorNodesRepository } from '@modules/sensorNodes/repositories/SensorNodesRepository';
 import { container } from 'tsyringe';
 
-container.registerSingleton<ISensorNodeRepository>(
-  'SensorNodeRepository',
-  SensorNodeRepository
+container.registerSingleton<ISensorNodesRepository>(
+  'SensorNodesRepository',
+  SensorNodesRepository
 );

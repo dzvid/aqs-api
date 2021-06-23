@@ -6,16 +6,16 @@ import cors from 'cors';
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 
-/** DB connection */
-import '@shared/infra/typeorm';
 /** Dependency injection */
 import '@shared/container';
 
 import errorHandler from '@shared/infra/http/middlewares/errorHandler';
 import { router } from '@shared/infra/http/routes';
+import createConnection from '@shared/infra/typeorm';
 
 import swaggerConfig from '../../../swagger.json';
 
+createConnection();
 const app = express();
 
 app.use(cors());
