@@ -1,7 +1,9 @@
+import { Reading } from '@modules/readings/entities/Reading';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -15,10 +17,10 @@ export class SensorNode {
   @Column()
   eid: string;
 
-  @Column()
+  @Column({ type: 'decimal', precision: 10, scale: 8 })
   location_latitude: number;
 
-  @Column()
+  @Column({ type: 'decimal', precision: 11, scale: 8 })
   location_longitude: number;
 
   @CreateDateColumn()
@@ -26,6 +28,9 @@ export class SensorNode {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => Reading, (reading) => reading.sensor_node)
+  readings: Reading[];
 
   constructor() {
     if (!this.id) {
