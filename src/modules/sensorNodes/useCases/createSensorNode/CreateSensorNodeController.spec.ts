@@ -23,7 +23,7 @@ describe('Create Sensor Node Controller', () => {
     };
 
     const response = await request(app)
-      .post('/v1/sensor-nodes')
+      .post('/api/v1/sensor-nodes')
       .send(sensorNode);
 
     expect(response.status).toBe(201);

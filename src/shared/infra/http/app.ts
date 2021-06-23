@@ -20,8 +20,8 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
-app.use('/v1', router);
+app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
+app.use('/api/v1', router);
 app.use(errorHandler);
 
 export { app };
