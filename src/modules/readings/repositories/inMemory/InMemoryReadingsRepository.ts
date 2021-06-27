@@ -31,7 +31,7 @@ export class InMemoryReadingsRepository implements IReadingsRepository {
     return reading;
   }
 
-  async findBySensorNodeIdAndCollectedAtDate(
+  async findReadingBySensorNodeIdAndCollectedAtDate(
     sensor_node_id: string,
     collected_at: Date
   ): Promise<Reading> {

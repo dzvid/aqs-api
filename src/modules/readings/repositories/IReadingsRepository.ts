@@ -3,7 +3,7 @@ import { ICreateReadingDTO } from '../useCases/createReading/ICreateReadingDTO';
 
 export interface IReadingsRepository {
   create(data: ICreateReadingDTO): Promise<Reading>;
-  findBySensorNodeIdAndCollectedAtDate(
+  findReadingBySensorNodeIdAndCollectedAtDate(
     sensor_node_id: string,
     collected_at: Date
   ): Promise<Reading | undefined>;

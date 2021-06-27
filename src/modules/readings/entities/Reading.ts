@@ -16,19 +16,19 @@ export class Reading {
   @PrimaryGeneratedColumn('uuid')
   id?: string;
 
-  @Column({ type: 'double precision' })
+  @Column({ type: 'decimal', precision: 6, scale: 3, nullable: true })
   relative_humidity?: number;
 
-  @Column({ type: 'double precision' })
+  @Column({ type: 'decimal', precision: 7, scale: 3, nullable: true })
   temperature?: number;
 
-  @Column({ type: 'double precision' })
+  @Column({ type: 'decimal', precision: 8, scale: 3, nullable: true })
   pressure?: number;
 
-  @Column({ type: 'double precision' })
+  @Column({ type: 'decimal', precision: 8, scale: 3 })
   pm25: number;
 
-  @Column({ type: 'double precision' })
+  @Column({ type: 'decimal', precision: 8, scale: 3 })
   pm10: number;
 
   @Column({ type: 'timestamp with time zone' })

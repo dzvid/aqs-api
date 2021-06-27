@@ -14,9 +14,33 @@ export namespace CreateReadingError {
     }
   }
 
-  export class InvalidReading extends AppError {
+  export class InvalidPM25Value extends AppError {
     constructor() {
-      super('Invalid reading data');
+      super('Invalid particulate matter 2.5μm value');
+    }
+  }
+
+  export class InvalidPM10Value extends AppError {
+    constructor() {
+      super('Invalid particulate matter 10μm value');
+    }
+  }
+
+  export class InvalidPressureValue extends AppError {
+    constructor() {
+      super('Invalid pressure value');
+    }
+  }
+
+  export class InvalidTemperatureValue extends AppError {
+    constructor() {
+      super('Invalid temperature value');
+    }
+  }
+
+  export class InvalidRelativeHumidity extends AppError {
+    constructor() {
+      super('Invalid relative humidity value');
     }
   }
 }
