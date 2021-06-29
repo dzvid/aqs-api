@@ -1,5 +1,8 @@
 /* eslint-disable max-classes-per-file */
+import Joi from 'joi';
+
 import { AppError } from '@shared/errors/AppError';
+import { ValidationError } from '@shared/errors/ValidationError';
 
 export namespace CreateReadingError {
   export class ReadingAlreadyExists extends AppError {
@@ -41,6 +44,12 @@ export namespace CreateReadingError {
   export class InvalidRelativeHumidity extends AppError {
     constructor() {
       super('Invalid relative humidity value');
+    }
+  }
+
+  export class ReadingValidationError extends ValidationError {
+    constructor(error: Joi.ValidationError) {
+      super(error);
     }
   }
 }

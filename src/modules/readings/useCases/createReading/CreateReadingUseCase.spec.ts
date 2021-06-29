@@ -1,6 +1,6 @@
 import { InMemoryReadingsRepository } from '@modules/readings/repositories/inMemory/InMemoryReadingsRepository';
 import { InMemorySensorNodesRepository } from '@modules/sensorNodes/repositories/inMemory/InMemorySensorNodesRepository';
-import { validate } from 'uuid';
+import { v4 as uuidV4, validate } from 'uuid';
 
 import { CreateReadingError } from './CreateReadingError';
 import { CreateReadingUseCase } from './CreateReadingUseCase';
@@ -88,7 +88,7 @@ describe('Create Reading Use Case', () => {
     const sampleInvalidSensorNode = {
       pm10: 7.0,
       pm25: 5.2,
-      sensor_node_id: 'invalid-sensor-node',
+      sensor_node_id: uuidV4(),
       pressure: null,
       relative_humidity: null,
       temperature: null,
@@ -115,7 +115,7 @@ describe('Create Reading Use Case', () => {
 
     await expect(async () => {
       await createReadingUseCase.execute(sampleReadingInvalidPM10);
-    }).rejects.toBeInstanceOf(CreateReadingError.InvalidPM10Value);
+    }).rejects.toBeInstanceOf(CreateReadingError.ReadingValidationError);
   });
 
   it('should not be able to store a reading with invalid pm25 value', async () => {
@@ -133,6 +133,6 @@ describe('Create Reading Use Case', () => {
 
     await expect(async () => {
       await createReadingUseCase.execute(sampleReadingInvalidPM25);
-    }).rejects.toBeInstanceOf(CreateReadingError.InvalidPM25Value);
+    }).rejects.toBeInstanceOf(CreateReadingError.ReadingValidationError);
   });
 });
