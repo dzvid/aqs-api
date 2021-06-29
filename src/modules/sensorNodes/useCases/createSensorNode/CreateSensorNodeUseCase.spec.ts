@@ -74,7 +74,7 @@ describe('Create Sensor Node Use Case', () => {
 
     await expect(async () => {
       await createSensorNodeUseCase.execute(sensorNode);
-    }).rejects.toBeInstanceOf(CreateSensorNodeError.InvalidSensorNodeLocation);
+    }).rejects.toBeInstanceOf(CreateSensorNodeError.SensorNodeValidationError);
   });
 
   it('it should not be able to create a sensor node with invalid latitude', async () => {
@@ -85,7 +85,7 @@ describe('Create Sensor Node Use Case', () => {
 
     await expect(async () => {
       await createSensorNodeUseCase.execute(sensorNode);
-    }).rejects.toBeInstanceOf(CreateSensorNodeError.InvalidSensorNodeLocation);
+    }).rejects.toBeInstanceOf(CreateSensorNodeError.SensorNodeValidationError);
   });
 
   it('it should not be able to create a sensor node with invalid longitude', async () => {
@@ -96,6 +96,6 @@ describe('Create Sensor Node Use Case', () => {
 
     await expect(async () => {
       await createSensorNodeUseCase.execute(sensorNode);
-    }).rejects.toBeInstanceOf(CreateSensorNodeError.InvalidSensorNodeLocation);
+    }).rejects.toBeInstanceOf(CreateSensorNodeError.SensorNodeValidationError);
   });
 });

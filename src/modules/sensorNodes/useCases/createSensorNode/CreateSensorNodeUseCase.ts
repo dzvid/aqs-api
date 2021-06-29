@@ -3,6 +3,7 @@ import { ISensorNodesRepository } from '@modules/sensorNodes/repositories/ISenso
 import { inject, injectable } from 'tsyringe';
 
 import { CreateSensorNodeError } from './CreateSensorNodeError';
+import { CreateSensorNodeValidator } from './CreateSensorNodeValidator';
 import { ICreateSensorNodeDTO } from './ICreateSensorNodeDTO';
 
 @injectable()
@@ -16,11 +17,13 @@ export class CreateSensorNodeUseCase {
     location_latitude,
     location_longitude,
   }: ICreateSensorNodeDTO): Promise<SensorNode> {
-    if (
-      !(location_latitude >= -90 && location_latitude <= 90) ||
-      !(location_longitude >= -180 && location_longitude <= 180)
-    ) {
-      throw new CreateSensorNodeError.InvalidSensorNodeLocation();
+    const { error } = CreateSensorNodeValidator({
+      location_latitude,
+      location_longitude,
+    });
+
+    if (error) {
+      throw new CreateSensorNodeError.SensorNodeValidationError(error);
     }
 
     const sensorNode = await this.sensorNodesRepository.create({
