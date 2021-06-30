@@ -39,9 +39,108 @@ describe('Create Reading Use Case', () => {
       sensor_node_id: sensorNode.id,
       pm10: 7.0,
       pm25: 5.2,
+      pressure: 1013.25,
+      relative_humidity: 80,
+      temperature: 32,
+      collected_at: new Date(),
+    };
+
+    const reading = await createReadingUseCase.execute(sampleValidReading);
+    const readings =
+      await inMemoryReadingsRepository.findAllReadingsBySensorNodeId(
+        sampleValidReading.sensor_node_id
+      );
+
+    expect(readings).toStrictEqual([reading]);
+
+    expect(validate(reading.id)).toBe(true);
+    expect(reading).toHaveProperty('pm10');
+    expect(reading).toHaveProperty('pm25');
+    expect(reading).toHaveProperty('sensor_node_id');
+    expect(reading).toHaveProperty('pressure');
+    expect(reading).toHaveProperty('relative_humidity');
+    expect(reading).toHaveProperty('temperature');
+    expect(reading).toHaveProperty('collected_at');
+    expect(reading).toHaveProperty('created_at');
+    expect(reading).toHaveProperty('updated_at');
+  });
+
+  it('should be able to store a reading with minimal concentrations for pm10 and pm25', async () => {
+    const sensorNode = await createSensorNode(inMemorySensorNodesRepository);
+
+    const sampleValidReading = {
+      sensor_node_id: sensorNode.id,
+      pm10: 0.0,
+      pm25: 0.0,
+      pressure: 1013.25,
+      relative_humidity: 70,
+      temperature: 30,
+      collected_at: new Date(),
+    };
+
+    const reading = await createReadingUseCase.execute(sampleValidReading);
+    const readings =
+      await inMemoryReadingsRepository.findAllReadingsBySensorNodeId(
+        sampleValidReading.sensor_node_id
+      );
+
+    expect(readings).toStrictEqual([reading]);
+
+    expect(validate(reading.id)).toBe(true);
+    expect(reading).toHaveProperty('pm10');
+    expect(reading).toHaveProperty('pm25');
+    expect(reading).toHaveProperty('sensor_node_id');
+    expect(reading).toHaveProperty('pressure');
+    expect(reading).toHaveProperty('relative_humidity');
+    expect(reading).toHaveProperty('temperature');
+    expect(reading).toHaveProperty('collected_at');
+    expect(reading).toHaveProperty('created_at');
+    expect(reading).toHaveProperty('updated_at');
+  });
+
+  it('should be able to store a reading with null values for optional fields (pressure, relative humidity and temperature) for a sensor node', async () => {
+    const sensorNode = await createSensorNode(inMemorySensorNodesRepository);
+
+    const sampleValidReading = {
+      sensor_node_id: sensorNode.id,
+      pm10: 2.0,
+      pm25: 1.6,
       pressure: null,
       relative_humidity: null,
       temperature: null,
+      collected_at: new Date(),
+    };
+
+    const reading = await createReadingUseCase.execute(sampleValidReading);
+    const readings =
+      await inMemoryReadingsRepository.findAllReadingsBySensorNodeId(
+        sampleValidReading.sensor_node_id
+      );
+
+    expect(readings).toStrictEqual([reading]);
+
+    expect(validate(reading.id)).toBe(true);
+    expect(reading).toHaveProperty('pm10');
+    expect(reading).toHaveProperty('pm25');
+    expect(reading).toHaveProperty('sensor_node_id');
+    expect(reading).toHaveProperty('pressure');
+    expect(reading).toHaveProperty('relative_humidity');
+    expect(reading).toHaveProperty('temperature');
+    expect(reading).toHaveProperty('collected_at');
+    expect(reading).toHaveProperty('created_at');
+    expect(reading).toHaveProperty('updated_at');
+  });
+
+  it('should be able to store a reading with undefined values for optional fields (pressure, relative humidity and temperature) for a sensor node', async () => {
+    const sensorNode = await createSensorNode(inMemorySensorNodesRepository);
+
+    const sampleValidReading = {
+      sensor_node_id: sensorNode.id,
+      pm10: 3.6,
+      pm25: 10.6,
+      pressure: undefined,
+      relative_humidity: undefined,
+      temperature: undefined,
       collected_at: new Date(),
     };
 
