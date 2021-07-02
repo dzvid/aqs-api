@@ -1,17 +1,33 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
+import { CreateReadingUseCase } from './CreateReadingUseCase';
+
 export class CreateReadingController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const {} = request.body;
+    const {
+      collected_at,
+      pm10,
+      pm25,
+      pressure,
+      relative_humidity,
+      temperature,
+    } = request.body;
 
-    const createSensorNodeUseCase = container.resolve(CreateSensorNodeUseCase);
+    const { sensor_node_id } = request.params;
 
-    const sensorNode = await createSensorNodeUseCase.execute({
-      location_latitude,
-      location_longitude,
+    const createReadingUseCase = container.resolve(CreateReadingUseCase);
+
+    const reading = await createReadingUseCase.execute({
+      sensor_node_id,
+      collected_at,
+      pm10,
+      pm25,
+      pressure,
+      relative_humidity,
+      temperature,
     });
 
-    return response.status(201).send(sensorNode);
+    return response.status(201).send(reading);
   }
 }
