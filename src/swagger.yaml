@@ -1,0 +1,34 @@
+openapi: 3.0.0
+info:
+  title: Demo Air Quality System API
+  description: API for the air quality sensor network using DTN
+  version: 0.0.1
+  contact:
+    email: oliveiradavid.dev@gmail.com
+
+servers:
+  - url: http://localhost:{port}/api/v1
+    variables:
+      port:
+        default: '3000'
+
+consumes:
+  - application/json
+
+produces:
+  - application/json
+
+paths:
+  /sensor-nodes:
+    post:
+      tags: ['Sensor Nodes']
+      summary: Registers a new sensor node in the system.
+      responses:
+        '200':
+          description: A JSON containing information of a new sensor node registered.
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  type: string

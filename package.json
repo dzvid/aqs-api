@@ -7,7 +7,7 @@
   "author": "David",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn ./src/shared/infra/http/server.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --watch ./src/swagger.yaml --ignore-watch node_modules --respawn ./src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
     "test:integration": "NODE_ENV=test jest --runInBand --detectOpenHandles",
     "test:unit": "NODE_ENV=test jest",
@@ -31,7 +31,8 @@
     "ts-jest": "^27.0.3",
     "tsyringe": "^4.5.0",
     "typeorm": "^0.2.32",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
