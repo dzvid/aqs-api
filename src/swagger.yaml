@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Demo Air Quality System API
-  description: API for the air quality sensor network using DTN
+  description: API developed as part of the DTN based air quality sensor network. 
   version: 0.0.1
   contact:
     email: oliveiradavid.dev@gmail.com
@@ -12,23 +12,226 @@ servers:
       port:
         default: '3000'
 
-consumes:
-  - application/json
+components:
+  schemas:
+    # Schema for error response body
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
 
-produces:
-  - application/json
+    SensorNodeDTO:
+      type: object
+      properties:
+        location_latitude:
+          type: number
+          minimum: -90.0
+          maximum: 90.0
+        location_longitude:
+          type: number
+          minimum: -180.0
+          maximum: 180.0
+      required:
+        - location_latitude
+        - location_longitude
+    
+    SensorNode:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        eid:
+          type: string
+          pattern: '^dtn://aqs-sensor-id.dtn$'
+        location_latitude:
+          type: number
+          minimum: -90.0
+          maximum: 90.0
+        location_longitude:
+          type: number
+          minimum: -180.0
+          maximum: 180.0
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - location_latitude
+        - location_longitude
+
+    ReadingDTO:
+      type: object
+      properties:
+        relative_humidity: 
+          type: number
+          nullable: true
+          minimum: 0
+          maximum: 100
+        temperature:
+          type: number
+          nullable: true
+          minimum: -273.15
+        pressure:
+          type: number
+          nullable: true
+          minimum: 0
+        pm25: 
+          type: number
+          minimum: 0
+        pm10: 
+          type: number
+          minimum: 0
+        collected_at: 
+          type: string
+          format: date-time
+      required:
+        - pm25
+        - pm10
+        - collected_at
+    
+    Reading:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        relative_humidity: 
+          type: number
+          nullable: true
+          minimum: 0
+          maximum: 100
+        temperature:
+          type: number
+          nullable: true
+          minimum: -273.15
+        pressure:
+          type: number
+          nullable: true
+          minimum: 0
+        pm25: 
+          type: number
+          minimum: 0
+        pm10: 
+          type: number
+          minimum: 0
+        sensor_node_id:
+          type: string
+          format: uuid
+        collected_at: 
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - pm25
+        - pm10
+        - collected_at
+
+  responses:
+    400ValidationError:
+      description: Validation error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    401Unauthorized:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    404NotFound:
+      description: The specified resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    500InternalServerError:
+      description: Unexpected error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
 
 paths:
   /sensor-nodes:
     post:
       tags: ['Sensor Nodes']
-      summary: Registers a new sensor node in the system.
+      summary: Creates a sensor node.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:  
+                sensorNodeLocation:
+                  $ref: '#/components/schemas/SensorNodeDTO'
+              example:
+                location_latitude: -3.0917372
+                location_longitude: -60.0183566
       responses:
-        '200':
-          description: A JSON containing information of a new sensor node registered.
+        '201':
+          description: Sensor node created.
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  type: string
+                $ref: '#/components/schemas/SensorNode'
+        '400':
+          $ref: '#/components/responses/400ValidationError'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /sensor-nodes/{sensor_node_id}/readings:
+    post:
+      tags: ['Readings']   
+      summary: Saves a sensor node reading.
+      parameters:
+        - in: path
+          name: sensor_node_id
+          schema: 
+            type: string
+            format: uuid
+          required: true
+          description: A sensor node universally unique identifier (UUID).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:  
+                readingData:
+                  $ref: '#/components/schemas/ReadingDTO'
+              example:
+                relative_humidity: 75
+                temperature: 36
+                pressure: 1013.25
+                pm25: 25
+                pm10: 18
+                collected_at: "2021-06-07T03:29:25.663Z"
+      responses:
+        '201':
+          description: Reading created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reading'
+        '400':
+          $ref: '#/components/responses/400ValidationError'
+        '404':
+          description: Sensor Node not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
