@@ -138,24 +138,6 @@ components:
         - collected_at
 
   responses:
-    400ValidationError:
-      description: Validation error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    401Unauthorized:
-      description: Unauthorized.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    404NotFound:
-      description: The specified resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     500InternalServerError:
       description: Unexpected error.
       content:
@@ -187,7 +169,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/SensorNode'
         '400':
-          $ref: '#/components/responses/400ValidationError'
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
@@ -226,7 +212,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Reading'
         '400':
-          $ref: '#/components/responses/400ValidationError'
+          description: Validation error OR Reading already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              
         '404':
           description: Sensor Node not found.
           content:
