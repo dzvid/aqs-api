@@ -18,7 +18,6 @@
     "seed:admin": "ts-node-dev ./src/shared/infra/typeorm/seeds/admin.ts"
   },
   "dependencies": {
-    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "csv-parse": "^4.15.4",
     "dayjs": "^1.10.5",
