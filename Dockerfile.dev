@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:12-slim
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install --network-timeout 1000000 
