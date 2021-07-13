@@ -8,6 +8,7 @@
   "license": "MIT",
   "scripts": {
     "build": "NODE_ENV=production babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
+    "start": "node dist/shared/infra/http/server.js",
     "dev": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --watch ./src/swagger.yaml --ignore-watch node_modules --respawn ./src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
     "test:integration": "NODE_ENV=test jest --runInBand --detectOpenHandles",
