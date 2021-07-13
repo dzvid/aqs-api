@@ -5,6 +5,7 @@ services:
     image: postgres
     container_name: aqs-db
     restart: always
+    env_file: .env
     environment:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
@@ -19,6 +20,7 @@ services:
   aqs-api:
     image: dzvid/aqs-api:latest
     container_name: aqs-api
+    env_file: .env
     environment:
       - NODE_ENV=${NODE_ENV}
       - DB_HOST=${DB_HOST}
