@@ -1,3 +1,11 @@
+# refactor
+mvc/
+.vscode/
+
+# Build files
+
+dist/
+
 # yarn cache
 yarn.lock
 
