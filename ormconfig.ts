@@ -31,5 +31,4 @@ const prodConfig = {
   ...connectionSetup,
 };
 
-module.exports =
-  process.env.NODE_ENV === 'development' ? devConfig : prodConfig;
+module.exports = process.env.NODE_ENV === 'production' ? prodConfig : devConfig;
