@@ -22,7 +22,7 @@
     "csv-parse": "^4.15.4",
     "dayjs": "^1.10.5",
     "dotenv": "^9.0.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-async-errors": "^3.1.1",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
